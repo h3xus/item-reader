@@ -1,10 +1,11 @@
 <template>
     <div class="camera">
+      <p>{{$route.params.name}}</p>
         <div class="camera-comp ele-video" v-show="!shot">
             <video id="video" width="640" height="480" autoplay></video>
         </div>
         <div class="camera-comp ele-buttons" v-if="!shot">
-          <div @click="makeAshot()">
+          <div class="btn wrapper" @click="makeAshot()">
             <RoundButton  title="Snap Photo"></RoundButton>
           </div>
         </div>
@@ -13,11 +14,11 @@
         </div>
         <div class="camera-comp ele-retake"  v-if="shot">
             <!-- <button v-on:click="Retake"> Retake</button> -->
-            <div class="" @click="Retake()">
+            <div class="btn wrapper" @click="Retake()">
               <RoundButton title="Retake"></RoundButton>
             </div>
-            <div @click="Ok()">
-            <RoundButton title="Ok"></RoundButton>
+            <div class="btn wrapper" @click="Ok()">
+              <RoundButton title="Ok"></RoundButton>
             </div>
         </div>
     </div>
@@ -30,7 +31,8 @@ export default {
   name: 'CameraComp',
   data () {
     return {
-      shot: false
+      shot: false,
+      stepName: this.$route.params.name
     }
   },
   components: {
@@ -60,7 +62,7 @@ export default {
       var video = document.getElementById('video')
       var canvas = document.getElementById('canvas')
       var context = canvas.getContext('2d')
-      context.drawImage(video, 0, 0, 640, 480)
+          context.drawImage(video, 0, 0, 640, 480)
       this.token(canvas.toDataURL('image/png'))
       this.shot = true
     },
@@ -84,12 +86,22 @@ body, * {
   box-sizing: border-box;
 }
 .camera {
- border: 1px dotted #000;
+ border: 1px dotted transparent;
 }
 video, .camera-comp.ele-images {
   border: 1px solid #000;
 }
 .camera-comp {
   width: 640px;
+  height: 480px;
+}
+.camera-comp.ele-retake, .camera-comp.ele-buttons  {
+  width: 200px;
+  margin: 0 auto;
+}
+.camera-comp.ele-retake .btn.wrapper, .camera-comp .btn.wrapper {
+  /* float: left; */
+  margin: 10px auto;
+  /* widows: 50px; */
 }
 </style>

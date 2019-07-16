@@ -14,8 +14,8 @@ export default {
 </script>
 
 <style>
-
 .button {
+  font-family: 'DM Serif Display', serif;
   background: none;
   text-decoration: none;
   display: inline-block;

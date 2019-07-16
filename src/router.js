@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Category from './views/Category.vue'
+import Intro from './views/Intro.vue'
+import Calendar from './components/Calendar.vue'
 
 Vue.use(Router)
 
@@ -15,9 +17,19 @@ export default new Router({
       component: Home
     },
     {
+      path: '/intro',
+      name: 'Intro',
+      component: Intro
+    },
+    {
       path: '/category',
       name: 'category',
       component: Category
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: Calendar
     },
     {
       path: '/about',

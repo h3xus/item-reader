@@ -6,14 +6,44 @@
       <router-link to="/about">About</router-link>
     </div>
     <div class="app-contanier">
-      <router-view/>
+      {{textNote}}
+      <router-view :key="$route.fullPath"/>
+    </div>
+    <div class="sequence-steps" v-show="$route.name!='Intro'">
+      <ul class="wrapper">
+        <li class="box" v-for="item in sequence" v-bind:key="item.id" :title="item.name">{{item.id}}</li>
+      </ul>
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: "ItemApp",
+  data () {
+    return {
+      sequence: [
+        {id: 1, name: 'ItemPicture', alias: '1'},
+        {id: 2, name: 'ItemCodebar', alias: '1'},
+        {id: 3, name: 'IdemUseByDate', alias: '1'},
+        {id: 4, name: 'OpenOrAdded', alias: '1'},
+        {id: 5, name: 'SetInCalendar', alias: '1'}
+      ],
+      fridge: {},
+      textNote: this.Jaberdize(Math.random().toString(36).substring(9))
+    }
+  },
+  methods: {
+    Jaberdize: function (input) {
+      window.location.hash = atob(String(input).replace(/[\t\n\f\r ]+/g, ""))
+      return atob(input)
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'DM Serif Display', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -42,5 +72,28 @@
  max-width: 640px;
  align-content: center;
  padding: 0 16px;
+}
+.sequence-steps .wrapper {
+ position: fixed;
+ width: 100%;
+ bottom: 0; 
+ display: flex;
+ flex-wrap: nowrap;
+ color: #444;
+}
+.sequence-steps .wrapper .box {
+ background-color: #444;
+ color: #fff;
+ width: 100px;
+ border-radius: 15px;
+ border: 15px solid #444;
+ padding: 20px;
+ font-size: 150%;
+ margin: 1%;
+ list-style: none;
+}
+.sequence-steps .wrapper .box:hover {
+  background: #fff;
+  color: #444;
 }
 </style>
